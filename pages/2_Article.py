@@ -8,6 +8,17 @@
 # ==========================================
 import streamlit as st
 from deta import Deta
+st.set_page_config(
+    page_title="梓宸のBlog",
+    page_icon="📖",
+    layout="centered",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://gitee.com/ZiChen_3317/webtool-box',
+        'Report a bug': "https://gitee.com/ZiChen_3317/webtool-box/issues",
+        'About': "# 试验版应用"
+    })
+
 # 链接数据库
 
 deta = Deta(st.secrets["deta_key"])
