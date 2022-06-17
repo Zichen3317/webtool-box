@@ -86,7 +86,7 @@ with col_M:
             label='修改后的文章内容', value='')
 
         Article_Modify_preview = st.form_submit_button('预览')
-        Article_Modify_submitted = st.form_submit_button('提交')
+        Article_Modify_submitted = st.form_submit_button('修改')
 
         if Article_Modify_submitted:
             if Author_PASSWORD_Modify == st.secrets["author_password"]:
@@ -124,7 +124,7 @@ with col_R:
             "数据库文章列表", Article_Dict.keys())
 
         Article_Delete_preview = st.form_submit_button('预览')
-        Article_Delete_submitted = st.form_submit_button('提交')
+        Article_Delete_submitted = st.form_submit_button('删除')
 
         if Article_Delete_submitted:
             if Author_PASSWORD_Delete == st.secrets["author_password"]:
