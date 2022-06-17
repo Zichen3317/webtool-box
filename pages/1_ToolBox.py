@@ -8,7 +8,6 @@
 #             Description: 工具箱web页面主函数
 # ==========================================
 # 函数依赖库
-import datetime
 import json
 import os
 import re
@@ -40,7 +39,7 @@ st.set_page_config(
         'About': "# 试验版应用"
     }
 )
-PushDeer_key = 'PDU12177TM30DMBCR7Wg7SjzWd0dTKxubndtIbFlj'
+PushDeer_key = st.secrets['PushDeer_key']
 
 
 # 网易云获取歌词主函数
