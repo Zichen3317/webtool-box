@@ -16,6 +16,7 @@ import traceback
 from datetime import datetime
 from re import sub
 from urllib import request
+import pytz
 # 界面依赖库
 import streamlit as st
 # MOD
@@ -24,6 +25,7 @@ import bilibili_private_liveStatus
 import bilibili_public_liveStatus
 import bilibili_personal_information
 import PushDeer
+
 version = '🖥0.0.4🖥'
 # 输出格式设置
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -184,7 +186,7 @@ def Netease_URL_Processing(Url, TYPE):
             st.info('开始下载歌词...')
             SONGLIST_Download = st.progress(0)
             # 将上述获取到的歌曲信息进行解析并下载
-            TIME = str(datetime.today()).split('.')[
+            TIME = str(datetime.now(pytz.timezone('Asia/Shanghai'))).split('.')[
                 0].replace(':', '-').replace(' ', '-')
             os.mkdir('./%s' % TIME)
 
