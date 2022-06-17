@@ -26,9 +26,11 @@ st.set_page_config(
     }
 )
 Information_Tuple = {'导航': ['Home',
+                            'ToolBox',
                             'Article',
                             'Article WriteTool'],
                      '说明': ['主页',
+                            '工具箱',
                             '发布的文章',
                             '写作工具']}
 
