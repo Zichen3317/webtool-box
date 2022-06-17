@@ -12,6 +12,7 @@ import streamlit as st
 from deta import Deta
 import streamlit as st
 import PushDeer
+import pytz
 # 主页面设置
 st.set_page_config(
     page_title="梓宸の写作工具",
@@ -54,7 +55,7 @@ with col_L:
         submitted = st.form_submit_button('发布文章')
         if submitted:
             if Author_PASSWORD_New == st.secrets["author_password"]:
-                submitted_Time = str(datetime.today()).split('.')[
+                submitted_Time = str(datetime.now(pytz.timezone('Asia/Shanghai'))).split('.')[
                     0].split(' ')[0]
                 try:
                     st.info('开始写入 %s-%s' % (Article_Author, Article_Name))
@@ -66,7 +67,8 @@ with col_L:
                     st.balloons()
                     # 推送信息
                     PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Name} - 已上传".format(
-                        Time=str(datetime.today()).split('.')[0],
+                        Time=str(datetime.now(pytz.timezone(
+                            'Asia/Shanghai'))).split('.')[0],
                         Name="%s|%s-%s" % (submitted_Time,
                                            Article_Author, Article_Name)
                     ))
@@ -90,7 +92,7 @@ with col_M:
 
         if Article_Modify_submitted:
             if Author_PASSWORD_Modify == st.secrets["author_password"]:
-                Modify_Time = str(datetime.today()).split('.')[
+                Modify_Time = str(datetime.now(pytz.timezone('Asia/Shanghai'))).split('.')[
                     0].split(' ')[0]
                 try:
                     # TIP：文章名称格式为 创建日期|作者-文章名，上传修改版本后需要把创建日期替换掉
@@ -105,7 +107,8 @@ with col_M:
                     st.balloons()
                     # 推送信息
                     PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Name} - 进行了修改".format(
-                        Time=str(datetime.today()).split('.')[0],
+                        Time=str(datetime.now(pytz.timezone(
+                            'Asia/Shanghai'))).split('.')[0],
                         Name="%s|%s" % (
                             Modify_Time, Article_Select.split('|')[-1])
                     ))
@@ -135,7 +138,8 @@ with col_R:
                         Delete_Message = Delete_Message+'已删除:%s\n' % i
                     st.info(Delete_Message)
                     PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Message} - 已删除".format(
-                        Time=str(datetime.today()).split('.')[0],
+                        Time=str(datetime.now(pytz.timezone(
+                            'Asia/Shanghai'))).split('.')[0],
                         Message=Delete_Message)
                     )
 
@@ -152,7 +156,7 @@ with st.container():
 
 # 写作时的文章预览
     if preview:
-        preview_Time = str(datetime.today()).split('.')[
+        preview_Time = str(datetime.now(pytz.timezone('Asia/Shanghai'))).split('.')[
             0].split(' ')[0]
 
         st.markdown('\n ## %s|%s-%s' %
