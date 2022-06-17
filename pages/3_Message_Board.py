@@ -11,6 +11,7 @@ import streamlit as st
 from deta import Deta
 from datetime import datetime
 import PushDeer
+import pytz
 st.set_page_config(
     page_title="梓宸の留言板",
     page_icon="📋",
@@ -58,7 +59,8 @@ class Message:
         在删除留言时 name、PASSWORD_Delete 可以不传入
         '''
         # 信息传入先赋予Time属性
-        self.Time = str(datetime.today()).split('.')[0]
+        self.Time = str(datetime.now(
+            pytz.timezone('Asia/Shanghai'))).split('.')[0]
         self.name = name
         self.content = content
         self.PASSWORD_Delete = PASSWORD_Delete
