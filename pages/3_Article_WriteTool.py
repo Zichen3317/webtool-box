@@ -11,10 +11,23 @@ from datetime import datetime
 import streamlit as st
 from deta import Deta
 import streamlit as st
+import PushDeer
+# 主页面设置
+st.set_page_config(
+    page_title="梓宸の写作工具",
+    page_icon="🖋",
+    layout="centered",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://gitee.com/ZiChen_3317/webtool-box',
+        'Report a bug': "https://gitee.com/ZiChen_3317/webtool-box/issues",
+        'About': "# 试验版应用"
+    })
+
 # 链接数据库
 deta = Deta(st.secrets["deta_key"])
 db = deta.Base('demo001-WEBToolBOX-streamlit-Article')
-
+PushDeer_key = st.secrets['PushDeer_key']
 # 获取数据库数据 [{}]
 Article_Dict = {}
 
@@ -51,6 +64,12 @@ with col_L:
                     })
                     st.success('✔写入成功！')
                     st.balloons()
+                    # 推送信息
+                    PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Name} - 已上传".format(
+                        Time=str(datetime.today()).split('.')[0],
+                        Name="%s|%s-%s" % (submitted_Time,
+                                           Article_Author, Article_Name)
+                    ))
                 except:
                     st.error(traceback.format_exc())
             else:
@@ -84,6 +103,12 @@ with col_M:
                         "hometown": '- *[修改时间] %s* \n%s' % (Modify_Time, Article_Modify_Content)}, Article_Dict[Article_Select]['key'])
                     st.success('✔修改成功！')
                     st.balloons()
+                    # 推送信息
+                    PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Name} - 进行了修改".format(
+                        Time=str(datetime.today()).split('.')[0],
+                        Name="%s|%s" % (
+                            Modify_Time, Article_Select.split('|')[-1])
+                    ))
                 except:
                     st.error(traceback.format_exc())
             else:
@@ -109,6 +134,11 @@ with col_R:
                         result = db.delete(Article_Dict[i]['key'])
                         Delete_Message = Delete_Message+'已删除:%s\n' % i
                     st.info(Delete_Message)
+                    PushDeer.PushDeer_Sent(PushDeer_key, "[{Time}] - {Message} - 已删除".format(
+                        Time=str(datetime.today()).split('.')[0],
+                        Message=Delete_Message)
+                    )
+
                 except:
                     st.error(traceback.format_exc())
             else:
