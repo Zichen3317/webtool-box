@@ -53,16 +53,17 @@ class Message:
     PASSWORD_Delete:str 删除留言时所需的权限密码
     '''
 
-    def __init__(self, name, content=None, PASSWORD_Delete=None):
+    def __init__(self, name=None, content=None, PASSWORD_Delete=None):
         '''
-        在删除留言时 content、PASSWORD_Delete 可以不传入
+        在删除留言时 name、PASSWORD_Delete 可以不传入
         '''
         # 信息传入先赋予Time属性
         self.Time = str(datetime.today()).split('.')[0]
         self.name = name
         self.content = content
-
+        self.PASSWORD_Delete = PASSWORD_Delete
 # 上传留言
+
     def Create(self):
         db.put({"name": "[{Time}]|{Name}".format(Time=self.Time,
                                                  Name=self.name),
