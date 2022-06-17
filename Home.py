@@ -28,10 +28,12 @@ st.set_page_config(
 Information_Tuple = {'导航': ['Home',
                             'ToolBox',
                             'Article',
+                            'Message Board'
                             'Article WriteTool'],
                      '说明': ['主页',
                             '工具箱',
                             '发布的文章',
+                            '留言板'
                             '写作工具']}
 
 st.markdown("# 🎉欢迎来到梓宸の实验室🎉\n ### 👈请从侧边栏进入")
