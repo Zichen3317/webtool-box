@@ -10,6 +10,7 @@ import traceback
 import streamlit as st
 from deta import Deta
 from datetime import datetime
+import PushDeer
 st.set_page_config(
     page_title="梓宸の留言板",
     page_icon="📋",
@@ -68,15 +69,20 @@ class Message:
                 "hometown": self.content})
         st.success("✔上传成功！")
         st.snow()
-
+        PushDeer.PushDeer_Sent(
+            PushDeer_key, "{Name} - {Content}".format(Content=self.content, Name=self.name))
 # 删除留言
 
     def Delete(self):
         if self.PASSWORD_Delete == st.secrets['author_password']:
             try:
+                Delete_Message = ''
                 for i in self.content:
                     db.delete(Message_Dict[i]["key"])
+                    Delete_Message = Delete_Message+'已删除:%s\n' % i
                 st.success("✔已删除")
+                PushDeer.PushDeer_Sent(
+                    PushDeer_key, "✔已删除\n{msg} ".format(msg=Delete_Message))
             except:
                 st.error(traceback.format_exc())
         else:
