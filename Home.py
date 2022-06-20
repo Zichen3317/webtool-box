@@ -8,9 +8,6 @@
 # ==========================================
 import streamlit as st
 from datetime import datetime
-import os
-import traceback
-PushDeer_key = 'PDU12177TM30DMBCR7Wg7SjzWd0dTKxubndtIbFlj'
 # 启动服务
 print('[%s]服务已启动✓' % datetime.today())
 
@@ -36,7 +33,8 @@ Information_Tuple = {'导航': ['Home',
                             '留言板',
                             '写作工具']}
 
-st.markdown("# 🎉欢迎来到梓宸の实验室🎉\n ### 👈请从侧边栏进入")
+st.markdown(
+    "# 🎉欢迎来到梓宸の实验室🎉\n ### 👈请从侧边栏进入\n[项目源码（Github）](https://github.com/Zichen3317/webtool-box/edit)")
 with st.container():
     st.markdown('***')
     st.markdown('📜侧边栏导航说明📜')
