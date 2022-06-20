@@ -11,7 +11,7 @@ from datetime import datetime
 import streamlit as st
 from deta import Deta
 import streamlit as st
-import PushDeer
+from MOD import PushDeer
 import pytz
 # 主页面设置
 st.set_page_config(

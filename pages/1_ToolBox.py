@@ -8,6 +8,15 @@
 #             Description: 工具箱web页面主函数
 # ==========================================
 # 函数依赖库
+from MOD import Douban_Film
+from MOD import PushDeer
+from MOD import bilibili_personal_information
+from MOD import bilibili_public_liveStatus
+from MOD import bilibili_private_liveStatus
+from MOD import NeteaseCloudGames_autocheckin_index
+from MOD import QQkg
+import pandas as pd
+import streamlit as st
 import json
 import os
 import re
@@ -17,15 +26,10 @@ from datetime import datetime
 from re import sub
 from urllib import request
 import pytz
+import sys  # 导入sys模块
+sys.setrecursionlimit(2500)  # 将默认的递归深度修改
 # 界面依赖库
-import streamlit as st
 # MOD
-import NeteaseCloudGames_autocheckin_index
-import bilibili_private_liveStatus
-import bilibili_public_liveStatus
-import bilibili_personal_information
-import PushDeer
-
 version = '🖥0.0.4🖥'
 # 输出格式设置
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -247,9 +251,6 @@ with st.expander("发信息给梓宸（可供本地/云服务器使用）"):
             except:
                 st.error(traceback.format_exc())
 
-# 侧边栏
-# with st.sidebar:
-
 # 网易云歌词下载
 # 可伸缩拓展容器套表单
 with st.expander("网易云歌词下载（仅供本地服务器使用）"):
@@ -421,5 +422,47 @@ with st.expander('B站个人信息查看（可供本地/云服务器使用）'):
                     bilibili_personal_data['name'], bilibili_personal_data['uid']))
                 st.markdown("#### 等级:%s" % bilibili_personal_data['level'])
                 st.markdown("#### 硬币:%s" % bilibili_personal_data['coin'])
+            except:
+                st.error(traceback.format_exc())
+
+# 先获取城市信息
+City_Dict = Douban_Film.Film().City_GET_DATA()
+# MOD03 - 豆瓣正在/即将上线电影查询
+with st.expander('豆瓣正在/即将上线电影查询'):
+    with st.form('DouBanFilm_GET'):
+        CitySelect = st.text_input('输入要查看的城市名称')
+        submitted = st.form_submit_button('点击查看')
+        if submitted:
+            try:
+                ComingFilmData = Douban_Film.Film(
+                    city=City_Dict[CitySelect]).Upcoming_GET_FILM()
+                ReleasingFilmData = Douban_Film.Film(
+                    city=City_Dict[CitySelect]).NowPlaying_GET_FILM()
+                st.markdown("## [%s] 正在上映" % CitySelect)
+                st.dataframe(ReleasingFilmData)
+                st.markdown("## [%s] 即将上映" % CitySelect)
+                st.dataframe(ComingFilmData)
+            except KeyError:
+                st.warning(traceback.format_exc())
+
+#MOD04 -全民K歌歌曲解析
+with st.expander('全民K歌歌曲解析'):
+    with st.form('QQkg'):
+        SongURL = st.text_input('歌曲分析链接')
+        submitted = st.form_submit_button('解析')
+        if submitted:
+            try:
+                Song_Dict = QQkg.SONG(url=SongURL).GETData()
+                st.success('✌解析完毕')
+                try:
+                    st.markdown("### {SongName} - {SingerName} (Cover:{CovererName})\n歌曲链接: [点击打开]({Url})".format(
+                        SongName=Song_Dict['Song_Name'],
+                        SingerName=Song_Dict['Singer_Name'],
+                        CovererName=Song_Dict['Coverer_Name'],
+                        Url=Song_Dict['Song_URL']))
+                except:
+                    st.markdown('#### 歌曲信息获取异常，仅获取到歌曲链接!\n歌曲链接: [点击打开]({Url})'.format(
+                     Url=Song_Dict['Song_URL']   
+                    ))
             except:
                 st.error(traceback.format_exc())
