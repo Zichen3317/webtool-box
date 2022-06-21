@@ -7,12 +7,10 @@
 #             Description: 爬取Html框架（用类重写）
 # ==========================================
 # 导入库
-from email import header
-from email.quoprimime import header_check
-import traceback
-from nonebot import NoneBot
 import requests
 from bs4 import BeautifulSoup
+
+Version = '0.1'
 
 
 class GetData:
