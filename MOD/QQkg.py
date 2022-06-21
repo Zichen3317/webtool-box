@@ -6,13 +6,12 @@
 #           Version:
 #             Description: 解析全民K歌歌曲
 # ==========================================
-try:
-    from MOD import HTML_crawler
-except:
-    import HTML_crawler
+from MOD import HTML_crawler
 import re
 import traceback
 import streamlit as st
+
+Version = '0.1'
 
 
 class SONG:
