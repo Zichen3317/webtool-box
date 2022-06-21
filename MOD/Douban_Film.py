@@ -8,11 +8,10 @@
 # ==========================================
 # 由于整个程序的入口文件是Home.py,故在服务器上运行时需要从MOD包里导入HTML_crawler
 # 而在本地只调试本py文件时，则是直接在同级目录中导入HTML_crawler
-try:
-    from MOD import HTML_crawler
-except:
-    import HTML_crawler
+import HTML_crawler
 import pandas as pd
+
+Version = '0.1'
 
 
 class Film:
