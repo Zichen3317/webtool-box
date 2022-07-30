@@ -26,12 +26,19 @@ Information_Tuple = {'导航': ['Home',
                             'ToolBox',
                             'Article',
                             'Message Board',
-                            'Article WriteTool'],
+                            'Article WriteTool',
+                            'Navigation',
+                            'PhotoDrive',
+                            'UpdateLog'],
                      '说明': ['主页',
                             '工具箱',
                             '发布的文章',
                             '留言板',
-                            '写作工具']}
+                            '写作工具',
+                            '浏览器书签分享（🔧建设中）',
+                            '网盘[照片]（🔧建设中）',
+                            '更新日志（🔧建设中）',
+                            ]}
 
 st.markdown(
     "# 🎉欢迎来到梓宸の实验室🎉\n ### 👈请从侧边栏进入\n[项目源码（Github）](https://github.com/Zichen3317/webtool-box/edit)")
