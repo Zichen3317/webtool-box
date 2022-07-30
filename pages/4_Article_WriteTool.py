@@ -10,7 +10,6 @@ import traceback
 from datetime import datetime
 import streamlit as st
 from deta import Deta
-import streamlit as st
 from MOD import PushDeer
 import pytz
 # 主页面设置
@@ -43,8 +42,8 @@ except ValueError:
     pass
 Tool_Version = '0.3'
 st.markdown("## 🖋写作工具🖋\n *版本号:%s*" % Tool_Version)
-col_L, col_M, col_R = st.columns(3)
-with col_L:
+tab1, tab2, tab3 = st.tabs(["🖊写作", "🖌修改", "✂删除"])
+with tab1:
     st.markdown("### 🖊写作")
     with st.form('文章必要信息录入'):
         Author_PASSWORD_New = st.text_input('权限密码')
@@ -77,7 +76,7 @@ with col_L:
             else:
                 st.warning("❌未获取上传权限！请检查权限密码是否正确！")
 
-with col_M:
+with tab2:
     st.markdown("### 🖌修改")
     with st.form('需修改文章提交'):
         Author_PASSWORD_Modify = st.text_input('权限密码')
@@ -118,7 +117,7 @@ with col_M:
                 st.warning("❌未获取修改权限！请检查权限密码是否正确！")
 
 # 删除文章操作窗口
-with col_R:
+with tab3:
     st.markdown("### ✂删除")
     with st.form('删除指定文章'):
         Author_PASSWORD_Delete = st.text_input('权限密码')

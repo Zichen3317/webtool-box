@@ -33,12 +33,12 @@ Message_Dict = {}
 
 
 st.markdown("## 📋梓宸の留言板📋\n版本号:%s" % version)
-
+tab1, tab2, tab3 = st.tabs(["留言", "创建留言", "删除留言"])
 try:
     for i in Message_Data:
         Message_Dict[(i['hometown'])] = {'key': i['key'],
                                          'name': i['name']}
-    with st.expander("留言"):
+    with tab1:
         for i in Message_Data:
             st.markdown("[%s] %s" % (i['name'], i['hometown']))
 except:
@@ -93,8 +93,7 @@ class Message:
 
 
 with st.container():
-    col_L, col_R = st.columns(2)
-    with col_L:
+    with tab2:
         st.markdown("##### 创建留言")
         with st.form("创建留言"):
             Message_Name = st.text_input("如何称呼您？")
@@ -104,7 +103,7 @@ with st.container():
                 M = Message(content=Message_Create,
                             name=Message_Name)
                 M.Create()
-    with col_R:
+    with tab3:
         st.markdown("##### 删除留言")
         with st.form("删除留言"):
             PASSWORD_Delete = st.text_input("权限密码")
