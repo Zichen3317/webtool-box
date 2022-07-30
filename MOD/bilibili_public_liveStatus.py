@@ -6,6 +6,7 @@
 # 导入库
 from urllib import request
 import json
+Version = '0.1'
 
 # 用requests库的get()方法简明地获取网页信息。第一个函数返回一个网页内容---r.text.
 

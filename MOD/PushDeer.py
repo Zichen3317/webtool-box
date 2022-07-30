@@ -7,6 +7,7 @@
 #             Description: PushDeer发送模块
 # ==========================================
 import requests as r
+Version = '0.1'
 
 
 def PushDeer_Sent(key, message):
